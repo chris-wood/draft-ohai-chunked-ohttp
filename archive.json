@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-07-27T00:07:46.204285+00:00",
+  "timestamp": "2023-07-30T00:08:24.706880+00:00",
   "repo": "tfpauly/draft-ohai-streamed-ohttp",
   "labels": [
     {
@@ -49,6 +49,39 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 1,
+      "id": "I_kwDOJtaXUM5s53rI",
+      "title": "Rename streamed",
+      "url": "https://github.com/tfpauly/draft-ohai-streamed-ohttp/issues/1",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Rename streamed -> chunked?",
+      "createdAt": "2023-07-28T21:31:36Z",
+      "updatedAt": "2023-07-28T21:31:36Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 2,
+      "id": "I_kwDOJtaXUM5s54Oy",
+      "title": "Expand applicability explanation",
+      "url": "https://github.com/tfpauly/draft-ohai-streamed-ohttp/issues/2",
+      "state": "OPEN",
+      "author": "tfpauly",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "- Explain when to use this instead of non-chunked OHTTP\r\n- Explain when to use this instead of MASQUE\r\n  - Specifically:\r\n  - OHTTP relay has a strong trust relationship with the gateway; forward proxies don't have that\r\n  - Talking to a server deeper in HTTP load balancer networks, etc, is more easily accessible with OHTTP",
+      "createdAt": "2023-07-28T21:34:37Z",
+      "updatedAt": "2023-07-28T21:34:37Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": []
 }
