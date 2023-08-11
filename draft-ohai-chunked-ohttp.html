@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>Chunked Oblivious HTTP Messages</title>
 <meta content="Tommy Pauly" name="author">
+<meta content="Martin Thomson" name="author">
 <meta content="
        This document defines a variant of the Oblivious HTTP message format that allows
 chunks of requests and responses to be encrypted and decrypted before the entire
@@ -13,17 +14,17 @@ request or response is processed. This allows incremental processing of Obliviou
 HTTP messages, which is particularly useful for handling large messages or systems
 that process messages slowly. 
     " name="description">
-<meta content="xml2rfc 3.17.4" name="generator">
+<meta content="xml2rfc 3.17.5" name="generator">
 <meta content="draft-ohai-chunked-ohttp-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.17.4
+  xml2rfc 3.17.5
     Python 3.11.4
     ConfigArgParse 1.5.3
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.9.1
+    platformdirs 3.10.0
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.31.0
@@ -1050,11 +1051,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Chunked OHTTP</td>
-<td class="right">July 2023</td>
+<td class="right">August 2023</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Pauly</td>
-<td class="center">Expires 1 February 2024</td>
+<td class="left">Pauly &amp; Thomson</td>
+<td class="center">Expires 12 February 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,17 +1068,21 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-ohai-chunked-ohttp-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-07-31" class="published">31 July 2023</time>
+<time datetime="2023-08-11" class="published">11 August 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-02-01">1 February 2024</time></dd>
-<dt class="label-authors">Author:</dt>
+<dd class="expires"><time datetime="2024-02-12">12 February 2024</time></dd>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">T. Pauly</div>
 <div class="org">Apple</div>
+</div>
+<div class="author">
+      <div class="author-name">M. Thomson</div>
+<div class="org">Mozilla</div>
 </div>
 </dd>
 </dl>
@@ -1123,7 +1128,7 @@ that process messages slowly.<a href="#section-abstract-1" class="pilcrow">¶</a
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 February 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 February 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1180,11 +1185,6 @@ that process messages slowly.<a href="#section-abstract-1" class="pilcrow">¶</a
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-truncation-attacks" class="internal xref">Truncation Attacks</a></p>
-</li>
-            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
@@ -1198,13 +1198,21 @@ that process messages slowly.<a href="#section-abstract-1" class="pilcrow">¶</a
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1230,8 +1238,11 @@ reporting.<a href="#section-1-2" class="pilcrow">¶</a></p>
 decrypt parts of the messages in chunks. If a request or response can be processed by a
 receiver in separate parts, and is particularly large or will be generated slowly, then
 sending a series of encrypted chunks can improve the performance of applications.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">This document defines a variant of Oblivious HTTP that supports handling both requests
-and responses in chunks, along with new media types.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-4">Incremental delivery of responses allows an Oblivious Gateway Resource to provide
+Informational (1xx) responses (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-15.2" class="relref">Section 15.2</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document defines an optional message format for Oblivious HTTP that supports the
+progressive creation and processing of both requests and responses. New media types are
+defined for this purpose.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1243,6 +1254,7 @@ and responses in chunks, along with new media types.<a href="#section-1-4" class
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Notational conventions from <span>[<a href="#OHTTP" class="cite xref">OHTTP</a>]</span> are used in this document.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="chunked-request-and-response-media-types">
@@ -1346,8 +1358,9 @@ Non-Final Response Chunk {
 the same approach as the non-chunked variant, with the difference that
 the body of requests and responses are sealed and opened in chunks, instead
 of as a whole.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">Besides the chunks being individually encrypted and authenticated, the chunks
-protect two other pieces of information:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">The AEAD that protects both requests and responses protects individual chunks from
+modification or truncation. Additionally, chunk authentication protects two other
+pieces of information:<a href="#section-6-2" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-6-3">
 <li id="section-6-3.1">the order of the chunks (the sequence number of each chunk), which is
 included in the nonce of each chunk.<a href="#section-6-3.1" class="pilcrow">¶</a>
@@ -1356,11 +1369,12 @@ included in the nonce of each chunk.<a href="#section-6-3.1" class="pilcrow">¶<
 of the final chunk.<a href="#section-6-3.2" class="pilcrow">¶</a>
 </li>
       </ol>
-<p id="section-6-4">The format of the outer packaging that carries the chunks (the length fields,
-specifically) is not explicitly authenticated. AEADs already prevent truncation
-attacks on individual chunks. This also allows the chunks to be transported with
-different structures, and still be valid as long as the order and finality
-are preserved.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-4">The format of the outer packaging that carries the chunks (the length prefix for each
+chunk specifically) is not explicitly authenticated. This allows the chunks to be
+transported by alternative means, and still be valid as long as the order and
+finality are preserved.  In particular, the variable-length encoding used for lengths
+allows for different expressions of the same value, where the choice between
+equivalent encodings is not authenticated.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <div id="request-encap">
 <section id="section-6.1">
         <h3 id="name-request-encapsulation">
@@ -1375,7 +1389,7 @@ hdr = concat(encode(1, key_id),
              encode(2, kem_id),
              encode(2, kdf_id),
              encode(2, aead_id))
-info = concat(encode_str("message/bhttp request"),
+info = concat(encode_str("message/bhttp chunked request"),
               encode(1, 0),
               hdr)
 enc, sctxt = SetupBaseS(pkR, info)
@@ -1412,15 +1426,16 @@ the context, so the order of chunks is protected.<a href="#section-6.1-7" class=
 as in the non-chunked variant.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.2-2">
 <pre>
-response_nonce = random(max(Nn, Nk))
+entropy = max(Nn, Nk)
+response_nonce = random(entropy)
 </pre><a href="#section-6.2-2" class="pilcrow">¶</a>
 </div>
 <p id="section-6.2-3">Each chunk is sealed using the same AEAD key and AEAD nonce that are
 derived for the non-chunked variant, which are calculated as follows:<a href="#section-6.2-3" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-6.2-4">
 <pre>
-secret = context.Export("message/bhttp response", Nk)
-response_nonce = random(max(Nn, Nk))
+secret = context.Export("message/bhttp chunked response", entropy)
+response_nonce = random(entropy)
 salt = concat(enc, response_nonce)
 prk = Extract(salt, secret)
 aead_key = Expand(prk, "key", Nk)
@@ -1463,17 +1478,20 @@ final_chunk = concat(sealed_final_chunk_len, sealed_final_chunk)
       <h2 id="name-security-considerations">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<div id="truncation-attacks">
-<section id="section-7.1">
-        <h3 id="name-truncation-attacks">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-truncation-attacks" class="section-name selfRef">Truncation Attacks</a>
-        </h3>
-<p id="section-7.1-1">In order to avoid truncation attacks in which a relay tries to remove
-or drop any request or response chunks, receivers of chunks need to ensure
-that they only accept requests or responses that have a final chunk that
-correctly decrypts using the expected sentinel AAD, "final".<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
+<p id="section-7-1">The primary advantage of a chunked encoding is that chunked requests or responses can
+be generated or processed incrementally.  However, for a recipient in particular,
+processing an incomplete message can have security consequences.<a href="#section-7-1" class="pilcrow">¶</a></p>
+<p id="section-7-2">The potential for message truncation is not a new concern for HTTP.  All versions of
+HTTP provide incremental delivery of messages.  For this use of Oblivious HTTP,
+incremental processing that might result in side-effects demands particular attention
+as Oblivious HTTP does not provide strong protection against replay attacks; see
+<span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-ohai-ohttp-09#section-6.5" class="relref">Section 6.5</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>.  Truncation might be the result of interference at the
+network layer, or by a malicious Oblivious Relay Resource.<a href="#section-7-2" class="pilcrow">¶</a></p>
+<p id="section-7-3">Endpoints that receive chunked messages can perform early processing if the risks are
+understood and accepted. Conversely, endpoints that depend on having a complete
+message <span class="bcp14">MUST</span> ensure that they do not consider a message complete until having
+received a chunk with a 0-valued length prefix, which was successfully decrypted
+using the expected sentinel value, "final", in the AAD.<a href="#section-7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1492,7 +1510,7 @@ correctly decrypts using the expected sentinel AAD, "final".<a href="#section-7.
 <a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-message-ohttp-chunked-req-m" class="section-name selfRef">message/ohttp-chunked-req Media Type</a>
         </h3>
 <p id="section-8.1-1">The "message/ohttp-chunked-req" identifies an encrypted binary HTTP request
-that is transmitted using chunked chunks. This is a binary format that is
+that is transmitted or processed in chunks. This is a binary format that is
 defined in <a href="#request" class="auto internal xref">Section 4</a>.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlCompact dlParallel" id="section-8.1-2">
           <dt id="section-8.1-2.1">Type name:</dt>
@@ -1538,7 +1556,7 @@ defined in <a href="#request" class="auto internal xref">Section 4</a>.<a href="
 <dt id="section-8.1-2.17">Applications that use this media type:</dt>
           <dd style="margin-left: 1.5em" id="section-8.1-2.18">
             <p id="section-8.1-2.18.1">Oblivious HTTP and applications that use Oblivious HTTP use this media type to
-identify encapsulated binary HTTP requests sent in chunked chunks.<a href="#section-8.1-2.18.1" class="pilcrow">¶</a></p>
+identify encapsulated binary HTTP requests that are incrementally generated or processed.<a href="#section-8.1-2.18.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-8.1-2.19">Fragment identifier considerations:</dt>
@@ -1602,7 +1620,7 @@ identify encapsulated binary HTTP requests sent in chunked chunks.<a href="#sect
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-message-ohttp-chunked-res-m" class="section-name selfRef">message/ohttp-chunked-res Media Type</a>
         </h3>
 <p id="section-8.2-1">The "message/ohttp-res" identifies an encrypted binary HTTP response
-that is transmitted using chunked chunks. This is a binary format that
+that is transmitted or processed in chunks. This is a binary format that
 is defined in <a href="#response" class="auto internal xref">Section 5</a>.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <span class="break"></span><dl class="dlCompact dlParallel" id="section-8.2-2">
           <dt id="section-8.2-2.1">Type name:</dt>
@@ -1648,7 +1666,7 @@ is defined in <a href="#response" class="auto internal xref">Section 5</a>.<a hr
 <dt id="section-8.2-2.17">Applications that use this media type:</dt>
           <dd style="margin-left: 1.5em" id="section-8.2-2.18">
             <p id="section-8.2-2.18.1">Oblivious HTTP and applications that use Oblivious HTTP use this media type to
-identify encapsulated binary HTTP responses sent in chunked chunks.<a href="#section-8.2-2.18.1" class="pilcrow">¶</a></p>
+identify encapsulated binary HTTP responses that are incrementally generated or processed.<a href="#section-8.2-2.18.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-8.2-2.19">Fragment identifier considerations:</dt>
@@ -1709,35 +1727,51 @@ identify encapsulated binary HTTP responses sent in chunked chunks.<a href="#sec
 </section>
 </div>
 <section id="section-9">
-      <h2 id="name-normative-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<section id="section-9.1">
+        <h3 id="name-normative-references">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="HPKE">[HPKE]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Barnes, R.</span>, <span class="refAuthor">Bhargavan, K.</span>, <span class="refAuthor">Lipp, B.</span>, and <span class="refAuthor">C. Wood</span>, <span class="refTitle">"Hybrid Public Key Encryption"</span>, <span class="seriesInfo">RFC 9180</span>, <span class="seriesInfo">DOI 10.17487/RFC9180</span>, <time datetime="2022-02" class="refDate">February 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9180">https://www.rfc-editor.org/rfc/rfc9180</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OHTTP">[OHTTP]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Thomson, M.</span> and <span class="refAuthor">C. A. Wood</span>, <span class="refTitle">"Oblivious HTTP"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-ohai-ohttp-09</span>, <time datetime="2023-07-27" class="refDate">27 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-ohai-ohttp-09">https://datatracker.ietf.org/doc/html/draft-ietf-ohai-ohttp-09</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="QUIC">[QUIC]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9000">https://www.rfc-editor.org/rfc/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC6838">[RFC6838]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Freed, N.</span>, <span class="refAuthor">Klensin, J.</span>, and <span class="refAuthor">T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6838">https://www.rfc-editor.org/rfc/rfc6838</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+<section id="section-9.2">
+        <h3 id="name-informative-references">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="HTTP">[HTTP]</dt>
+      <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
 </section>
 <div id="acknowledgments">
 <section id="appendix-A">
@@ -1749,8 +1783,8 @@ identify encapsulated binary HTTP responses sent in chunked chunks.<a href="#sec
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Tommy Pauly</span></div>
@@ -1758,6 +1792,14 @@ identify encapsulated binary HTTP responses sent in chunked chunks.<a href="#sec
 <div class="email">
 <span>Email:</span>
 <a href="mailto:tpauly@apple.com" class="email">tpauly@apple.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Martin Thomson</span></div>
+<div dir="auto" class="left"><span class="org">Mozilla</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mt@lowentropy.net" class="email">mt@lowentropy.net</a>
 </div>
 </address>
 </section>
