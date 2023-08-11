@@ -110,7 +110,7 @@ Table of Contents
 
    Incremental delivery of responses allows an Oblivious Gateway
    Resource to provide Informational (1xx) responses (Section 15.2 of
-   [HTTP].
+   [HTTP]).
 
    This document defines an optional message format for Oblivious HTTP
    that supports the progressive creation and processing of both
