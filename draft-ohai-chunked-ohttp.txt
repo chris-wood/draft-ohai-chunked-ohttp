@@ -67,6 +67,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction
+     1.1.  Applicability
    2.  Conventions and Definitions
    3.  Chunked Request and Response Media Types
    4.  Request Format
@@ -116,6 +117,36 @@ Table of Contents
    that supports the progressive creation and processing of both
    requests and responses.  New media types are defined for this
    purpose.
+
+1.1.  Applicability
+
+   Like the non-chunked variant, chunked Oblivious HTTP has limited
+   applicability as described in Section 2.1 of [OHTTP], and requires
+   the use of a willing Oblivious Relay Resource and Oblivious Gateway
+   Resource.
+
+   Chunked Oblivious HTTP is intended to be used in cases for where the
+   privacy properties of Oblivious HTTP are needed — specifically,
+   removing linkage at the transport layer between separate HTTP
+   requests — but incremental processing is also needed for performance
+   or functionality.
+
+   One specific functional capability that requires chunked Oblivious
+   HTTP is support for Informational (1xx) responses (Section 15.2 of
+   [HTTP]).
+
+   In order to be useful, the content of chunked Oblivious HTTP needs to
+   be possible to process incrementally.  Since incremental processing
+   means that the message might end up being truncated, for example in
+   the case of an error on the underlying transport, applications also
+   need to be prepared to safely handle incomplete messages (see
+   Section 7 for more discussion).  Applications that use the
+   Indeterminate format of Binary HTTP (Section 3.2 of [BHTTP]) are
+   well-suited to using chunked Oblivious HTTP.
+
+   Chunked Oblivious HTTP is not intended to be used for long-lived
+   sessions between clients and servers that might build up state, or as
+   a replacement for a proxied TLS session.
 
 2.  Conventions and Definitions
 
@@ -388,6 +419,10 @@ Table of Contents
 9.  References
 
 9.1.  Normative References
+
+   [BHTTP]    Thomson, M. and C. A. Wood, "Binary Representation of HTTP
+              Messages", RFC 9292, DOI 10.17487/RFC9292, August 2022,
+              <https://www.rfc-editor.org/rfc/rfc9292>.
 
    [HPKE]     Barnes, R., Bhargavan, K., Lipp, B., and C. Wood, "Hybrid
               Public Key Encryption", RFC 9180, DOI 10.17487/RFC9180,
