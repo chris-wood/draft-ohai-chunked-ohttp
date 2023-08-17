@@ -1253,18 +1253,21 @@ defined for this purpose.<a href="#section-1-5" class="pilcrow">¶</a></p>
         <h3 id="name-applicability">
 <a href="#section-1.1" class="section-number selfRef">1.1. </a><a href="#name-applicability" class="section-name selfRef">Applicability</a>
         </h3>
-<p id="section-1.1-1">Like the non-chunked variant, chunked Oblivious HTTP has limited applicability,
-and requires the use of a willing Oblivious Relay Resource and Oblivious
-Gateway Resource.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
+<p id="section-1.1-1">Like the non-chunked variant, chunked Oblivious HTTP has limited applicability
+as described in <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-ohai-ohttp-09#section-2.1" class="relref">Section 2.1</a> of [<a href="#OHTTP" class="cite xref">OHTTP</a>]</span>, and requires the use of a willing
+Oblivious Relay Resource and Oblivious Gateway Resource.<a href="#section-1.1-1" class="pilcrow">¶</a></p>
 <p id="section-1.1-2">Chunked Oblivious HTTP is intended to be used in cases for where the privacy
 properties of Oblivious HTTP are needed — specifically, removing linkage
 at the transport layer between separate HTTP requests — but incremental
 processing is also needed for performance or functionality.<a href="#section-1.1-2" class="pilcrow">¶</a></p>
-<p id="section-1.1-3">The specific functional capability that requires chunked Oblivious HTTP
+<p id="section-1.1-3">One specific functional capability that requires chunked Oblivious HTTP
 is support for Informational (1xx) responses
 (<span><a href="https://rfc-editor.org/rfc/rfc9110#section-15.2" class="relref">Section 15.2</a> of [<a href="#HTTP" class="cite xref">HTTP</a>]</span>).<a href="#section-1.1-3" class="pilcrow">¶</a></p>
 <p id="section-1.1-4">In order to be useful, the content of chunked Oblivious HTTP needs to be
-possible to process incrementally. Applications that use the Interminate
+possible to process incrementally. Since incremental processing means that the
+message might end up being truncated, for example in the case of an error on the
+underlying transport, applications also need to be prepared to safely handle incomplete
+messages (see <a href="#security" class="auto internal xref">Section 7</a> for more discussion). Applications that use the Indeterminate
 format of Binary HTTP (<span><a href="https://rfc-editor.org/rfc/rfc9292#section-3.2" class="relref">Section 3.2</a> of [<a href="#BHTTP" class="cite xref">BHTTP</a>]</span>) are well-suited
 to using chunked Oblivious HTTP.<a href="#section-1.1-4" class="pilcrow">¶</a></p>
 <p id="section-1.1-5">Chunked Oblivious HTTP is not intended to be used for long-lived sessions

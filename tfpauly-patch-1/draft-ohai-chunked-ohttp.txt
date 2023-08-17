@@ -121,8 +121,9 @@ Table of Contents
 1.1.  Applicability
 
    Like the non-chunked variant, chunked Oblivious HTTP has limited
-   applicability, and requires the use of a willing Oblivious Relay
-   Resource and Oblivious Gateway Resource.
+   applicability as described in Section 2.1 of [OHTTP], and requires
+   the use of a willing Oblivious Relay Resource and Oblivious Gateway
+   Resource.
 
    Chunked Oblivious HTTP is intended to be used in cases for where the
    privacy properties of Oblivious HTTP are needed — specifically,
@@ -130,14 +131,18 @@ Table of Contents
    requests — but incremental processing is also needed for performance
    or functionality.
 
-   The specific functional capability that requires chunked Oblivious
+   One specific functional capability that requires chunked Oblivious
    HTTP is support for Informational (1xx) responses (Section 15.2 of
    [HTTP]).
 
    In order to be useful, the content of chunked Oblivious HTTP needs to
-   be possible to process incrementally.  Applications that use the
-   Interminate format of Binary HTTP (Section 3.2 of [BHTTP]) are well-
-   suited to using chunked Oblivious HTTP.
+   be possible to process incrementally.  Since incremental processing
+   means that the message might end up being truncated, for example in
+   the case of an error on the underlying transport, applications also
+   need to be prepared to safely handle incomplete messages (see
+   Section 7 for more discussion).  Applications that use the
+   Indeterminate format of Binary HTTP (Section 3.2 of [BHTTP]) are
+   well-suited to using chunked Oblivious HTTP.
 
    Chunked Oblivious HTTP is not intended to be used for long-lived
    sessions between clients and servers that might build up state, or as
