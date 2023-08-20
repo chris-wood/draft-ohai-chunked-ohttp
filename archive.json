@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-08-15T00:07:25.019856+00:00",
+  "timestamp": "2023-08-20T00:07:41.101520+00:00",
   "repo": "tfpauly/draft-ohai-chunked-ohttp",
   "labels": [
     {
@@ -71,15 +71,15 @@
       "id": "I_kwDOJtaXUM5s54Oy",
       "title": "Expand applicability explanation",
       "url": "https://github.com/tfpauly/draft-ohai-chunked-ohttp/issues/2",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "tfpauly",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "- Explain when to use this instead of non-chunked OHTTP\r\n- Explain when to use this instead of MASQUE\r\n  - Specifically:\r\n  - OHTTP relay has a strong trust relationship with the gateway; forward proxies don't have that\r\n  - Talking to a server deeper in HTTP load balancer networks, etc, is more easily accessible with OHTTP",
       "createdAt": "2023-07-28T21:34:37Z",
-      "updatedAt": "2023-07-28T21:34:37Z",
-      "closedAt": null,
+      "updatedAt": "2023-08-17T15:42:32Z",
+      "closedAt": "2023-08-17T15:42:32Z",
       "comments": []
     },
     {
@@ -94,9 +94,31 @@
       "labels": [],
       "body": "In order to simplify analysis and deviate less from the original design of OHTTP, consider adding a restriction to only allow response after complete request.",
       "createdAt": "2023-07-31T02:21:13Z",
-      "updatedAt": "2023-07-31T02:21:13Z",
+      "updatedAt": "2023-08-17T03:38:35Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "body": "One risk here is that having multiple back-and-forth interactions reveals can reveal timing information to the gateway.\r\n\r\nOne case where this may still be allowed is Expect 100-continue.",
+          "createdAt": "2023-08-17T03:23:09Z",
+          "updatedAt": "2023-08-17T03:23:09Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I'm not sure that this is necessary.  I would instead signpost the risks involved very clearly.\r\n\r\nFundamentally, the goal of OHTTP is to enable the creation of an isolated context.  What happens within that context could be arbitrarily complex, provided that the actions taken do not draw on information outside of that context.  So you can even string together multiple OHTTP requests, if you are prepared to accept some of the limitations of that.  This 100-continue thing leaks too, but maybe that leakage is acceptable.",
+          "createdAt": "2023-08-17T03:28:19Z",
+          "updatedAt": "2023-08-17T03:28:19Z"
+        },
+        {
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I should mention that any interactive use of OHTTP (the date correction stuff, 100-continue) reveals RTT to the client, which is a privacy leak.  That's worth mentioning as an additional concern even if you successfully isolate the interaction in all other ways.",
+          "createdAt": "2023-08-17T03:38:35Z",
+          "updatedAt": "2023-08-17T03:38:35Z"
+        }
+      ]
     },
     {
       "number": 5,
@@ -220,6 +242,175 @@
               "body": "Ah, the evidence of my find-and-replace... ",
               "createdAt": "2023-08-11T03:20:02Z",
               "updatedAt": "2023-08-11T03:20:10Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOJtaXUM5YHVRU",
+      "title": "Add applicability section",
+      "url": "https://github.com/tfpauly/draft-ohai-chunked-ohttp/pull/8",
+      "state": "MERGED",
+      "author": "tfpauly",
+      "authorAssociation": "OWNER",
+      "assignees": [
+        "tfpauly"
+      ],
+      "labels": [],
+      "body": "Closes #2\r\n\r\nFirst stab at this",
+      "createdAt": "2023-08-17T03:31:23Z",
+      "updatedAt": "2023-08-17T15:42:31Z",
+      "baseRepository": "tfpauly/draft-ohai-chunked-ohttp",
+      "baseRefName": "main",
+      "baseRefOid": "20db6ce4b0c456f2a85dad04a7619f9da54ec608",
+      "headRepository": "tfpauly/draft-ohai-chunked-ohttp",
+      "headRefName": "tfpauly-patch-1",
+      "headRefOid": "8987a820e70cef5244dd83f9a0de627c19fabe3a",
+      "closedAt": "2023-08-17T15:42:31Z",
+      "mergedAt": "2023-08-17T15:42:31Z",
+      "mergedBy": "tfpauly",
+      "mergeCommit": {
+        "oid": "595f4ef54c42911fdd9bb88aaaab5bf6e1fc218a"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOJtaXUM5eRzZI",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "martinthomson",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "Looks good.  Feedback to be incorporated at your discretion.",
+          "createdAt": "2023-08-17T03:34:19Z",
+          "updatedAt": "2023-08-17T03:39:12Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "\"The\" as in \"only\"?",
+              "createdAt": "2023-08-17T03:34:19Z",
+              "updatedAt": "2023-08-17T03:39:12Z"
+            },
+            {
+              "originalPosition": 20,
+              "body": "Might be worth adding that the application needs to be able to accept the potential for messages to be truncated, with a reference to security considerations.",
+              "createdAt": "2023-08-17T03:35:37Z",
+              "updatedAt": "2023-08-17T03:39:12Z"
+            },
+            {
+              "originalPosition": 11,
+              "body": "Is that an em dash?",
+              "createdAt": "2023-08-17T03:35:58Z",
+              "updatedAt": "2023-08-17T03:39:12Z"
+            },
+            {
+              "originalPosition": 6,
+              "body": "Maybe cite section 2.1 of OHTTP.",
+              "createdAt": "2023-08-17T03:37:01Z",
+              "updatedAt": "2023-08-17T03:39:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJtaXUM5eWPIU",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-17T15:26:43Z",
+          "updatedAt": "2023-08-17T15:26:44Z",
+          "comments": [
+            {
+              "originalPosition": 15,
+              "body": "Probably better as \"one\":\r\n```suggestion\r\nOne specific functional capability that requires chunked Oblivious HTTP\r\n```",
+              "createdAt": "2023-08-17T15:26:43Z",
+              "updatedAt": "2023-08-17T15:26:44Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJtaXUM5eWT5s",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-17T15:34:55Z",
+          "updatedAt": "2023-08-17T15:34:55Z",
+          "comments": [
+            {
+              "originalPosition": 11,
+              "body": "Indeed it is =)",
+              "createdAt": "2023-08-17T15:34:55Z",
+              "updatedAt": "2023-08-17T15:34:55Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJtaXUM5eWUgy",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-17T15:36:15Z",
+          "updatedAt": "2023-08-17T15:36:15Z",
+          "comments": [
+            {
+              "originalPosition": 8,
+              "body": "```suggestion\r\nLike the non-chunked variant, chunked Oblivious HTTP has limited applicability\r\nas described in {{Section 2.1 of OHTTP}}, and requires the use of a willing\r\nOblivious Relay Resource and Oblivious Gateway Resource.\r\n```",
+              "createdAt": "2023-08-17T15:36:15Z",
+              "updatedAt": "2023-08-17T15:36:15Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJtaXUM5eWWmq",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-17T15:40:48Z",
+          "updatedAt": "2023-08-17T15:40:48Z",
+          "comments": [
+            {
+              "originalPosition": 20,
+              "body": "```suggestion\r\npossible to process incrementally. Since incremental processing means that the\r\nmessage might end up being truncated, for example in the case of an error on the\r\nunderlying transport, applications also need to be prepared to safely handle incomplete\r\nmessages (see {{security}} for more discussion). Applications that use the Indeterminate\r\n```",
+              "createdAt": "2023-08-17T15:40:48Z",
+              "updatedAt": "2023-08-17T15:40:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOJtaXUM5eWWzi",
+          "commit": {
+            "abbreviatedOid": "c818cd6"
+          },
+          "author": "tfpauly",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2023-08-17T15:41:13Z",
+          "updatedAt": "2023-08-17T15:41:14Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "Done",
+              "createdAt": "2023-08-17T15:41:13Z",
+              "updatedAt": "2023-08-17T15:41:14Z"
             }
           ]
         }
